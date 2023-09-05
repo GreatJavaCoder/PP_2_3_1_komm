@@ -1,47 +1,44 @@
 package web.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
-import web.repository.UserRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Component
-public class UserDAOImp implements UserDAO{
-    private UserRepository userRepository;
+public class UserDAOImp implements UserDAO {
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public UserDAOImp() {
-    }
-
-    @Autowired
-    public UserDAOImp(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-
-    @Override
     public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u", User.class);
+        return query.getResultList();
     }
 
-    @Override
     public User getUser(int id) {
-        return userRepository.getUser(id);
+        User user = (User) entityManager.find(User.class, id);
+        return user;
     }
 
-    @Override
+    @Transactional
     public void addUser(User user) {
-        userRepository.addUser(user);
+        entityManager.persist(user);
     }
 
-    @Override
-    public void editUser(int id, User user) {
-        userRepository.editUser(id, user);
+    @Transactional
+    public void editUser(int id, User updatedUser) {
+        User userToBeUpdated = getUser(id);
+        userToBeUpdated.setHeight(updatedUser.getHeight());
+        userToBeUpdated.setName(updatedUser.getName());
+        entityManager.merge(userToBeUpdated);
     }
 
-    @Override
+    @Transactional
     public void deleteUser(int id) {
-        userRepository.deleteUser(id);
+        entityManager.remove(getUser(id));
     }
 }

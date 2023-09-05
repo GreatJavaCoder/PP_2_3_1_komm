@@ -16,7 +16,9 @@ public class User {
     @Column(name = "height")
     private int height;
 
-    public User() {}
+    public User() {
+
+    }
 
     public User(String name, int height) {
         this.name = name;

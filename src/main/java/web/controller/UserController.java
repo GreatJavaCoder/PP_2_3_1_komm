@@ -6,8 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.dao.UserDAO;
 import web.model.User;
-import web.repository.UserRepository;
-
 
 @Controller
 @RequestMapping("/usr")
