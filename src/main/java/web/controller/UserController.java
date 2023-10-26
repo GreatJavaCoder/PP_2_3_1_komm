@@ -17,14 +17,14 @@ public class UserController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping()
+    @GetMapping("/allusers")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userDAO.getAllUsers());
         return "usr/allusers";
     }
 
-    @GetMapping("/{id}")
-    public String getUser(@PathVariable("id") int id, Model model) {
+    @GetMapping("/personalpage")
+    public String getUser(@RequestParam("id") int id, Model model) {
         model.addAttribute("person", userDAO.getUser(id));
         return "usr/personalpage";
     }
@@ -35,27 +35,27 @@ public class UserController {
         return "usr/newuser";
     }
 
-    @PostMapping()
+    @PostMapping("/addnewuser")
     public String saveUser(@ModelAttribute("user") User user) {
         userDAO.addUser(user);
-        return "redirect:/usr";
+        return "redirect:/usr/allusers";
     }
 
-    @GetMapping("/{id}/edituser")
-    public String showEditUserForm(Model model, @PathVariable("id") int id) {
+    @GetMapping("/edituser")
+    public String showEditUserForm(Model model, @RequestParam("id") int id) {
         model.addAttribute("user", userDAO.getUser(id));
         return "usr/edituser";
     }
 
-    @PatchMapping("/{id}")
-    public String editUser(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+    @PostMapping("/personalpage")
+    public String editUser(@ModelAttribute("user") User user, @RequestParam("id") int id) {
         userDAO.editUser(id, user);
-        return "redirect:/usr";
+        return "redirect:/usr/allusers";
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") int id) {
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam("id") int id) {
         userDAO.deleteUser(id);
-        return "redirect:/usr";
+        return "redirect:/usr/allusers";
     }
 }

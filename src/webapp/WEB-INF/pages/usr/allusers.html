@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>show all users</title>
@@ -8,7 +8,7 @@
 <H1>Users list</H1>
 <p>
 <div th:each="user : ${users}">
-    <a th:href="@{/usr/{id}(id=${user.getId()})}" th:text="${user.getId()} + ' ' + ${user.getName()}">DATA</a>
+    <a th:href="@{/usr/personalpage?id={id}(id=${user.getId()})}" th:text="${user.getId()} + ' ' + ${user.getName()}">DATA</a>
 </div>
 
 </body>

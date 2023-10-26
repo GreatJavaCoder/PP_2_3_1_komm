@@ -5,7 +5,7 @@
 <body>
 <h1>Start page</h1>
 <p>
-<a href="/usr">SHOW USERS LIST</a>
+<a href="/usr/allusers">SHOW USERS LIST</a>
 <p>
 <a href="/usr/newuser">ADD NEW USER</a>
 </body>
