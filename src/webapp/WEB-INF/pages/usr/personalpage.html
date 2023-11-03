@@ -13,7 +13,7 @@
 <p>
     <a th:href="@{/usr/edituser?id={id}(id=${person.getId()})}">Edit user</a>
 <p>
-<form th:method="POST" th:action="@{/usr/delete?id={id}(id=${person.getId()})}">
+<form th:method="DELETE" th:action="@{/usr/delete?id={id}(id=${person.getId()})}">
     <input type="submit" value="Delete">
 </form>
 

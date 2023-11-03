@@ -1,7 +1,6 @@
 package web.dao;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 import javax.persistence.EntityManager;
@@ -27,13 +26,11 @@ public class UserDAOImp implements UserDAO {
     }
 
     @Override
-    @Transactional
     public void addUser(User user) {
         entityManager.persist(user);
     }
 
     @Override
-    @Transactional
     public void editUser(int id, User updatedUser) {
         User userToBeUpdated = getUser(id);
         userToBeUpdated.setHeight(updatedUser.getHeight());
@@ -42,7 +39,6 @@ public class UserDAOImp implements UserDAO {
     }
 
     @Override
-    @Transactional
     public void deleteUser(int id) {
         entityManager.remove(getUser(id));
     }
